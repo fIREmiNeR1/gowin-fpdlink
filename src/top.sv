@@ -18,11 +18,11 @@ fpdlink_transmitter panel
 (
     .clk27(sys_clk),
     .rstn(sys_rst_n),
-    .pixel_x(curr_x),
-    .pixel_y(curr_y),
-    .pixel_r(curr_x),
-    .pixel_g(curr_y),
-    .pixel_b(curr_x - curr_y),
+    .pixel_x(curr_x), //output wire signed [12:0], positive when active pixels
+    .pixel_y(curr_y), //output wire signed [12:0], positive when active pixels
+    .pixel_r(curr_x), //6-bit color input, RGB666
+    .pixel_g(curr_y), 
+    .pixel_b(curr_x - curr_y), //r=curr_x, g=curr_y, b=curr_x-curr_y creates an interesting test pattern
     .lvds_clk_p(lvds_clk_p),
     .lvds_clk_n(lvds_clk_n),
     .lvds_d0_p(lvds_d0_p),
