@@ -21,8 +21,8 @@ My config is: Samsung LTN156AT35 panel(1366x768p, 60hz, single-link 6-bit panel)
 **Some pictures:**
 
 <p><img width="1280" height="960" alt="disp_pattern" src="https://github.com/user-attachments/assets/e14dc960-7a5d-402a-900d-a77ae6cd498b" />
-Test pattern
+Test pattern(display is physically damaged, black part and white strip)
 <p><img width="1280" height="960" alt="disp_network" src="https://github.com/user-attachments/assets/2fd88a7a-fc10-4d97-a78f-ab835be922d0" />
-Resistor network</p>
+Resistor network(pairs are not shorted, resistors are tilted up-down so nothing shorts)</p>
 <p><img width="829" height="884" alt="kicad_KauR70vIu5" src="https://github.com/user-attachments/assets/fe96d582-6768-447b-b6cc-ff34f964acf8" />
 
