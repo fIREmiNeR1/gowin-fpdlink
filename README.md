@@ -1,5 +1,7 @@
 # FPD-Link(OpenLDI, "LVDS") display controller for Gowin FPGAs
 
+**Something is broken as for now. Fixes soon**
+
 This project mostly targets Tang nano 9k board.
 It should work on any other boards, but I can't guarantee that other chips will support primitives used here in the same way.
 
