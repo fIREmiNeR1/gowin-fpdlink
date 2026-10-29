@@ -17,6 +17,12 @@ My config is: Samsung LTN156AT35 panel(1366x768p, 60hz, single-link 6-bit panel)
 <p>After TGEN, we finally have pixel color input and pixel coordinates. Module tells pixel coordinates, user logic tells color of that pixel, its as simple as that.</p>
 <p>This is mostly code I wrote for myself, it has almost no parameters, and squeezed into a single file for convenient use. You may edit timings, PLL settings(for different clock, which is needed if you change timings), tgen pixel coordinates lag. Check everything carefully, be aware that if there are some parameters, it doesn't mean that changing them configures everything perfectly.
 </p><p>About signal integrity. Diff pairs run at really fast clock(486Mbps in this case) which is significant for these FPGAs. Display cable is wrapped in conductive tape and diff pairs are twisted for a reason. Try to not untwist pairs too much, keep everything tidy, and be really careful with resistors. Its the biggest point of failure, and this circuit already works at its limits. Keep the legs short, close to PCB pads, wires as similar in length as possible(inter-pair and intra-pair skew is already a concern at such speeds). Overall, if everything is very tidy, but nothing works, its not the issue. But if the controller can sync, some image appears, but it flickers, loses sync - try to minimize signal integrity problems. Also running PWM or other digital interfaces(PWM signal for backlight, EDID I2C for example) close to diff pairs can degrade signal. Diff pairs must cancel the noise, but it can still be a reason for poor signal.</p>
-# Some pictures:
 
-[To be done]
+**Some pictures:**
+
+<p><img width="1280" height="960" alt="disp_pattern" src="https://github.com/user-attachments/assets/e14dc960-7a5d-402a-900d-a77ae6cd498b" />
+Test pattern
+<p><img width="1280" height="960" alt="disp_network" src="https://github.com/user-attachments/assets/2fd88a7a-fc10-4d97-a78f-ab835be922d0" />
+Resistor network</p>
+<p><img width="829" height="884" alt="kicad_KauR70vIu5" src="https://github.com/user-attachments/assets/fe96d582-6768-447b-b6cc-ff34f964acf8" />
+
