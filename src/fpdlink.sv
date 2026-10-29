@@ -15,16 +15,22 @@ module fpdlink_transmitter
     input [5:0] pixel_g,
     input [5:0] pixel_b,
 
-    output lvds_c_p,
-    output lvds_c_n,
-    output lvds_d_p[2:0],
-    output lvds_d_n[2:0]
+    output lvds_clk_p,
+    output lvds_clk_n,
+    output lvds_d0_p,
+    output lvds_d0_n,
+    output lvds_d1_p,
+    output lvds_d1_n,
+    output lvds_d2_p,
+    output lvds_d2_n
 );
+
+wire ser_clk, par_clk;
 
 fpd_Gowin_rPLL mhz243_pll(
         .clkout(ser_clk),
         .lock(),
-        .reset(rstn),
+        .reset(~rstn),
         .clkin(clk27)
     );
 
@@ -36,8 +42,6 @@ fpd_Gowin_CLKDIV mhz243_div_35(
 
 wire [2:0] vid_hve;
 
-wire signed[12:0] pic_x, pic_y;
-
 fpd_tgen vid_tgen (
   .i_pixel_clk(par_clk),
   .o_hve(vid_hve),   // { display_enable, vsync, hsync}
@@ -48,15 +52,15 @@ fpd_tgen vid_tgen (
 OVIDEO ovideo_d0 (
         .Q(vid_d0),
         .D0(vid_hve[2]),        //de(very important!)
-        .D1(1'b0),              //vsync(doesnt matter for my panel, may_differ)
-        .D2(1'b0),              //hsync(doesnt matter for my panel, may differ)
+        .D1(vid_hve[1]),              //vsync(doesnt matter for my panel, may_differ)
+        .D2(vid_hve[0]),              //hsync(doesnt matter for my panel, may differ)
         .D3(pixel_b[5]),              //b5
         .D4(pixel_b[4]),              //b4
         .D5(pixel_b[3]),              //b3
         .D6(pixel_b[2]),              //b2
         .PCLK(par_clk),
         .FCLK(ser_clk),
-        .RESET(rstn)
+        .RESET(~rstn)
     );
 OVIDEO ovideo_d1 (
         .Q(vid_d1),
@@ -69,7 +73,7 @@ OVIDEO ovideo_d1 (
         .D6(pixel_g[1]),              //g1
         .PCLK(par_clk),
         .FCLK(ser_clk),
-        .RESET(rstn)
+        .RESET(~rstn)
     );
 OVIDEO ovideo_d2 (
         .Q(vid_d2),
@@ -82,7 +86,7 @@ OVIDEO ovideo_d2 (
         .D6(pixel_r[0]),               //r0
         .PCLK(par_clk),
         .FCLK(ser_clk),
-        .RESET(rstn)
+        .RESET(~rstn)
     );
 
 OVIDEO ovideo_clk (
@@ -96,13 +100,13 @@ OVIDEO ovideo_clk (
         .D6(1'b1),
         .PCLK(par_clk),
         .FCLK(ser_clk),
-        .RESET(rstn)
+        .RESET(~rstn)
     );
 
-ELVDS_OBUF u_clk (.I(vid_clk), .O(lvds_c_p), .OB(lvds_c_n));
-ELVDS_OBUF u_d0 (.I(vid_d0), .O(lvds_d_p[0]), .OB(lvds_d_n[0]));
-ELVDS_OBUF u_d1 (.I(vid_d1), .O(lvds_d_p[1]), .OB(lvds_d_n[1]));
-ELVDS_OBUF u_d2 (.I(vid_d2), .O(lvds_d_p[2]), .OB(lvds_d_n[2]));
+ELVDS_OBUF u_clk (.I(vid_clk), .O(lvds_clk_p), .OB(lvds_clk_n));
+ELVDS_OBUF u_d0 (.I(vid_d0), .O(lvds_d0_p), .OB(lvds_d0_n));
+ELVDS_OBUF u_d1 (.I(vid_d1), .O(lvds_d1_p), .OB(lvds_d1_n));
+ELVDS_OBUF u_d2 (.I(vid_d2), .O(lvds_d2_p), .OB(lvds_d2_n));
 
 endmodule
 

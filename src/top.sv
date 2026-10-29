@@ -4,8 +4,12 @@ module top
     input sys_rst_n,
     output lvds_clk_p,
     output lvds_clk_n,
-    output lvds_data_p[2:0],
-    output lvds_data_n[2:0]
+    output lvds_d0_p,
+    output lvds_d0_n,
+    output lvds_d1_p,
+    output lvds_d1_n,
+    output lvds_d2_p,
+    output lvds_d2_n
 );
 
 wire signed [12:0] curr_x, curr_y;
@@ -19,10 +23,14 @@ fpdlink_transmitter panel
     .pixel_r(curr_x),
     .pixel_g(curr_y),
     .pixel_b(curr_x - curr_y),
-    .lvds_c_p(lvds_clk_p),
-    .lvds_c_n(lvds_clk_n),
-    .lvds_d_p(lvds_data_p),
-    .lvds_d_n(lvds_data_n)
+    .lvds_clk_p(lvds_clk_p),
+    .lvds_clk_n(lvds_clk_n),
+    .lvds_d0_p(lvds_d0_p),
+    .lvds_d0_n(lvds_d0_n),
+    .lvds_d1_p(lvds_d1_p),
+    .lvds_d1_n(lvds_d1_n),
+    .lvds_d2_p(lvds_d2_p),
+    .lvds_d2_n(lvds_d2_n)
 );
 
 endmodule
